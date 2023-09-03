@@ -23,13 +23,16 @@ COPY backup.sh .
 
 RUN chmod 777 backup.sh
 
+ENV STORAGE=filesystem
+
 ENV S3_ENDPOINT=""
 ENV S3_ACCESS_KEY_ID=""
 ENV S3_SECRET_ACCESS_KEY=""
 ENV S3_BUCKET=""
-ENV S3_SSL=true
 
 ENV DB_TYPE=mongodb
 ENV MONGODB_URI=""
+
+VOLUME [ "/backup" ]
 
 CMD [ "./backup.sh" ]
