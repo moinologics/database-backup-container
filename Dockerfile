@@ -1,6 +1,6 @@
 FROM golang:1.21.0-alpine as builder
 
-RUN apk add --no-cache mongodb-tools mariadb-client postgresql14-client
+RUN apk add --no-cache mongodb-tools mariadb-client postgresql15-client
 
 RUN mkdir /targeted-bin
 
@@ -31,7 +31,11 @@ ENV S3_SECRET_ACCESS_KEY=""
 ENV S3_BUCKET=""
 
 ENV DB_TYPE=mongodb
+
 ENV MONGODB_URI=""
+
+ENV POSTGRESQL_URI=""
+ENV POSTGRESQL_PASSWORD=""
 
 VOLUME [ "/backup" ]
 

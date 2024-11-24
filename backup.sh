@@ -4,6 +4,10 @@ mongodb_backup() {
 	mongodump --quiet --uri=$MONGODB_URI --gzip --archive=$TMP_BACKUP_FILE_PATH
 }
 
+postgresql_backup() {
+	PGPASSWORD=$POSTGRESQL_PASSWORD pg_dumpall -d $POSTGRESQL_URI | gzip > $TMP_BACKUP_FILE_PATH
+}
+
 upload_to_s3() {
 	echo "Uploading Backup file to S3"
 	s3-uploader \
@@ -35,7 +39,7 @@ case $DB_TYPE in
     echo "DB_TYPE $DB_TYPE not implemented yet"; exit 128;
     ;;
   postgresql)
-    echo "DB_TYPE $DB_TYPE not implemented yet"; exit 128;
+    postgresql_backup
     ;;
 	mariadb)
     echo "DB_TYPE $DB_TYPE not implemented yet"; exit 128;
